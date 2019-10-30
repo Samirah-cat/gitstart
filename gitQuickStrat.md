@@ -1,47 +1,38 @@
 # Dev2 Maintenance Tutorial
 
 ## Goal 
-- 如何在linux上进行问题分析
-- java命令及工具的初步了解和掌握
-## install
-- https://gitforwindows.org/
-```
-> git config --global user.name "bao"
-> git config --global user.email "124335728@qq.com"
-#检查信息是否写入成功
-> git config --list 
+- 分布式版本控制系统
+- 了解git基本原理和操作：https://git-scm.com/docs
 
-git config --global i18n.commitencoding utf-8
-git config --global i18n.logoutputencoding utf-8
-
-export LESSCHARSET=utf-8 ## linux bash配置环境变量
-set LESSCHARSET=utf-8 #windows配置环境变量
-```
 ## Structure
 ![image](https://note.youdao.com/yws/public/resource/7c18d614a76e9fcc62525c32e12b1969/xmlnote/462C7807CA734F49B7AE428D515DABBA/744)
 
 - Working Directory：平时存放项目代码的地方。
-- Stage：临时存放你的改动，事实上它只是一个文件，保存即将提交的文件列表信息。
+- Stage：暂存已经修改的文件最后统一提交到仓库。
 - Repository：提交的所有版本的数据。其中，HEAD 指向最新放入仓库的版本。
+
+## Setup and Config
+- 下载地址：https://gitforwindows.org/
+```
+> git config --global user.name "Samirah-cat"
+> git config --global user.email "124335728@qq.com"
+> git config --global i18n.commitencoding utf-8
+> git config --global i18n.logoutputencoding utf-8
+```
 
 ## Getting and Creating Projects
 #### init
-- git-init - Create an empty Git repository or reinitialize an existing one
+- Description: Create an empty Git repository or reinitialize an existing one
 #### clone
-- git-clone - Clone a repository into a new directory
+- Description: Clone a repository into a new directory
 ```
-# 初始化Git项目，成功后创建有一个.git隐藏文件
 F:\MyProject>git init
-# 拷贝项目
 F:\MyProject2>git clone https://github.com/mihumouse/Java-Mock-Testing-Notes
 ```
 ## Basic Snapshotting
 #### status
 - Description: Show the working tree
 
-#### log
-- Description: Show commit logs
-- git log --graph --oneline --decorate --all: 以图像形式展示提交历史的分支结构
 #### add
 - Description: Add file contents to the index
 - git add . 将当前目录下修改的所有代码从工作区添加到暂存区 . 代表当前目录
@@ -51,6 +42,10 @@ F:\MyProject2>git clone https://github.com/mihumouse/Java-Mock-Testing-Notes
 - git commit -m "some commit log..."
 - git commit -am "some commit log...": 从工作目录一步添加到仓库
 - git commit --amend -m "": “更正”最近一次的提交
+
+#### log
+- Description: Show commit logs
+- git log --graph --oneline --decorate --all: 以图像形式展示提交历史的分支结构
 
 #### rm
 
@@ -67,6 +62,15 @@ F:\MyProject2>git clone https://github.com/mihumouse/Java-Mock-Testing-Notes
 - Description: Move or rename a file, a directory, or a symlink
 - git mv 旧文件名 新文件名
 
+
+#### reset 
+- Description:Reset current HEAD to the specified state
+- git reset HEAD~:  回退提交的代码。
+移动 HEAD 的指向，将其指向上一个快照，然后再将该位置的快照回滚到暂存区域。
+- git reset --soft HEAD~ : 只移动 HEAD 的指向，并不会将快照回滚到暂存区域。相当于撤消了上一次的提交（commit）。
+- git reset --hard HEAD~ : 不仅移动 HEAD 的指向，将快照回滚动到暂存区域，它还将暂存区域的文件还原到工作目录。
+- git reset --hard 快照id 文件名/路径: 将指定快照的指定文件回滚到暂存区域
+
 #### diff
 
 - Description：Show changes between commits, commit and working tree, etc
@@ -81,15 +85,8 @@ F:\MyProject2>git clone https://github.com/mihumouse/Java-Mock-Testing-Notes
 
 
 
-
-
-
-- git-reset - Reset current HEAD to the specified state
-
-
 ## Branching and Merging
 #### branch 
-
 - Description: List, create, or delete branches
 - Git 的分支原理实际上只是通过一个指针记载([Git分支原理](https://alibaba.github.io/arthas/quick-start.html))
 - git branch "分支名称"：创建分支
